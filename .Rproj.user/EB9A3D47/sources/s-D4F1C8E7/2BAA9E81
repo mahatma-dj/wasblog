@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1572939612142.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3745820590",
+    "id" : "2BAA9E81",
+    "lastKnownWriteTime" : 1573114543,
+    "last_content_update" : 1573114543193,
+    "path" : "~/data_projects/WASblog/DataPrep.R",
+    "project_path" : "DataPrep.R",
+    "properties" : {
+        "cursorPosition" : "37,36",
+        "scrollLine" : "25"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

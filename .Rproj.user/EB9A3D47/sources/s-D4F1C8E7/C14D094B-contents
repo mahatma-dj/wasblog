@@ -1,0 +1,5 @@
+# This script to explore the main wealth variables.
+
+hist(was5_hh$TotWlthW5)
+summary(was5_hh$TotWlthW5)
+svyhist()

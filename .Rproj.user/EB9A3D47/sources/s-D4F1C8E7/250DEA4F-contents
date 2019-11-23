@@ -1,0 +1,107 @@
+# This script creates new variables to be used in the model.
+# Run this second, after DataPrep.R and before datasetCreate.R.
+
+# Approach is to have specific binary vars for types of debt/arrears, and overall magnitude
+# vars for debt as a whole and arrears as a whole.
+
+## DEBT VARS
+# Mortgage - dichotomise
+was5_hh$z_Ten1Mort <- ifelse(was5_hh$Ten1w5_i == 2 
+                             | was5_hh$Ten1w5_i == 3,
+                             c("Mort"),c("NoMort"))
+
+
+# --Binary for each loan type (see gdoc for working)
+was5_per$z_standardLoan <- ifelse(was5_per$DLTYPE1w5_i == 1 | 
+                                        was5_per$DLTYPE1w5_i == 4 |
+                                        was5_per$DLTYPE2w5_i == 1 | 
+                                        was5_per$DLTYPE2w5_i == 4 |
+                                        was5_per$DLTYPE3w5_i == 1 | 
+                                        was5_per$DLTYPE3w5_i == 4 |
+                                        was5_per$DLTYPE4w5_i == 1 | 
+                                        was5_per$DLTYPE4w5_i == 4 |
+                                        was5_per$DLTYPE5w5_i == 1 | 
+                                        was5_per$DLTYPE5w5_i == 4,
+                                        c("Yes"),c("No"))
+was5_per$z_standardLoan <- as.factor(was5_per$z_standardLoan)
+
+was5_per$z_studentLoan <- ifelse(was5_per$DLTYPE1w5_i == 8 | 
+                                    was5_per$DLTYPE1w5_i == 9 |
+                                    was5_per$DLTYPE2w5_i == 8 | 
+                                    was5_per$DLTYPE2w5_i == 9 |
+                                    was5_per$DLTYPE3w5_i == 8 | 
+                                    was5_per$DLTYPE3w5_i == 9 |
+                                    was5_per$DLTYPE4w5_i == 8 | 
+                                    was5_per$DLTYPE4w5_i == 9 |
+                                    was5_per$DLTYPE5w5_i == 8 | 
+                                    was5_per$DLTYPE5w5_i == 9,
+                                    c("Yes"),c("No")) 
+was5_per$z_studentLoan <- as.factor(was5_per$z_studentLoan)
+
+was5_per$z_stressLoan <- ifelse(was5_per$DLTYPE1w5_i == 2 | 
+                                     was5_per$DLTYPE1w5_i == 10 |
+                                     was5_per$DLTYPE2w5_i == 2 | 
+                                     was5_per$DLTYPE2w5_i == 10 |
+                                     was5_per$DLTYPE3w5_i == 2 | 
+                                     was5_per$DLTYPE3w5_i == 10 |
+                                     was5_per$DLTYPE4w5_i == 2 | 
+                                     was5_per$DLTYPE4w5_i == 10 |
+                                     was5_per$DLTYPE5w5_i == 2 | 
+                                     was5_per$DLTYPE5w5_i == 10,
+                                   c("Yes"),c("No")) 
+was5_per$z_stressLoan <- as.factor(was5_per$z_stressLoan)
+
+was5_per$z_otherLoan <- ifelse(was5_per$DLTYPE1w5_i == 3 | 
+                                     was5_per$DLTYPE1w5_i == 5 |
+                                     was5_per$DLTYPE1w5_i == 6 | 
+                                     was5_per$DLTYPE1w5_i == 7 |
+                                     was5_per$DLTYPE1w5_i == 11 | 
+                                   was5_per$DLTYPE2w5_i == 3 | 
+                                   was5_per$DLTYPE2w5_i == 5 |
+                                   was5_per$DLTYPE2w5_i == 6 | 
+                                   was5_per$DLTYPE2w5_i == 7 |
+                                   was5_per$DLTYPE2w5_i == 11 | 
+                                   was5_per$DLTYPE3w5_i == 3 | 
+                                   was5_per$DLTYPE3w5_i == 5 |
+                                   was5_per$DLTYPE3w5_i == 6 | 
+                                   was5_per$DLTYPE3w5_i == 7 |
+                                   was5_per$DLTYPE3w5_i == 11 | 
+                                   was5_per$DLTYPE4w5_i == 3 | 
+                                   was5_per$DLTYPE4w5_i == 5 |
+                                   was5_per$DLTYPE4w5_i == 6 | 
+                                   was5_per$DLTYPE4w5_i == 7 |
+                                   was5_per$DLTYPE4w5_i == 11 | 
+                                   was5_per$DLTYPE5w5_i == 3 | 
+                                   was5_per$DLTYPE5w5_i == 5 |
+                                   was5_per$DLTYPE5w5_i == 6 | 
+                                   was5_per$DLTYPE5w5_i == 7 |
+                                   was5_per$DLTYPE5w5_i == 11,
+                                   c("Yes"),c("No")) 
+was5_per$z_otherLoan <- as.factor(was5_per$z_otherLoan)
+
+# Debt to income ratio 
+was5_hh$debtToIncome <- ifelse(was5_hh$HFINLw5_aggr > 0 & was5_hh$DVTotNIRW5 > 0,
+                               was5_hh$HFINLw5_aggr/was5_hh$DVTotNIRW5,
+                               NA) 
+
+## ARREARS VARS
+
+# Mortgage
+was5_hh$z_MArrAllW5 <- "No"
+was5_hh$z_MArrAllW5[was5_hh$MArrs1W5>1 & was5_hh$MArrs1W5<5 | 
+                      was5_hh$MArrs2W5>1 & was5_hh$MArrs2W5<5 | 
+                      was5_hh$MArrs3W5>1 & was5_hh$MArrs3W5<5] <- "Yes"
+was5_hh$z_MArrAllW5 <- as.factor(was5_hh$z_MArrAllW5)
+
+# Store/credit cards
+was5_per$z_cardArrears <- "No"
+was5_per$z_cardArrears[was5_per$DC12beh1W5 == 2 |
+                         was5_per$DC12beh2W5 == 2 |
+                         was5_per$DC12beh3W5 == 2] <- "Yes"
+was5_per$z_cardArrears <- as.factor(was5_per$z_cardArrears)
+
+# Overdrawn in current accounts, both joint and individual
+was5_per$z_overdrawn <- ifelse(was5_per$FCOvDInw5_i == 1 |
+                                 was5_per$FCOvDShw5_i == 1,
+                               c("Yes"),c("No"))
+was5_per$z_overdrawn <- as.factor(was5_per$z_overdrawn)

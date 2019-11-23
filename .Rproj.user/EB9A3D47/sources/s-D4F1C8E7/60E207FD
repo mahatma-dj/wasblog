@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573026479508.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "60E207FD",
+    "lastKnownWriteTime" : 1568978368,
+    "last_content_update" : 1568978368,
+    "path" : "~/data_projects/WASblog/multiplot.R",
+    "project_path" : "multiplot.R",
+    "properties" : {
+        "cursorPosition" : "45,0",
+        "scrollLine" : "27"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

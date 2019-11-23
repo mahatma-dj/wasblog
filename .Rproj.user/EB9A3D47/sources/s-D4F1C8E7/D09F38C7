@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573026486103.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D09F38C7",
+    "lastKnownWriteTime" : 1569444344,
+    "last_content_update" : 1569444344,
+    "path" : "~/data_projects/WASblog/plots.R",
+    "project_path" : "plots.R",
+    "properties" : {
+        "cursorPosition" : "84,21",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
